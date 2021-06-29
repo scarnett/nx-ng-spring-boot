@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="tapSubmit()">
+  <div class="form-row mb-3">
+    <div class="col">
+      <input type="text" [ngClass]="getFieldClasses(form.controls.firstName)" id="firstName" formControlName="firstName" [placeholder]="'First Name'" required />
+      <span class="invalid-feedback" [innerHtml]="'First name is required'" *ngIf="hasError(form.controls.firstName)"></span>
+    </div>
+    <div class="col">
+      <input type="text" [ngClass]="getFieldClasses(form.controls.lastName)" id="lastName" formControlName="lastName" [placeholder]="'Last Name'" required />
+      <span class="invalid-feedback" [innerHtml]="'Last name is required'" *ngIf="hasError(form.controls.lastName)"></span>
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <div class="col">
+      <input type="email" [ngClass]="getFieldClasses(form.controls.email)" id="email" formControlName="email" [placeholder]="'Email Address'" required />
+      <span class="invalid-feedback" [innerHtml]="'Email address is required'" *ngIf="hasError(form.controls.email)"></span>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [innerHtml]="'Submit'"></button>
+  <a href="#" [innerHtml]="'Cancel'" class="ml-3" (click)="tapCancel()"></a>
+</form>

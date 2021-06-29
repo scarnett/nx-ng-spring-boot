@@ -1,27 +1,27 @@
 {
   "version": 1,
   "projects": {
-    "nx-ng-spring-boot": {
+    "client": {
       "projectType": "application",
-      "root": "apps/nx-ng-spring-boot",
-      "sourceRoot": "apps/nx-ng-spring-boot/src",
-      "prefix": "nx-ng-spring-boot",
+      "root": "apps/client",
+      "sourceRoot": "apps/client/src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/nx-ng-spring-boot",
-            "index": "apps/nx-ng-spring-boot/src/index.html",
-            "main": "apps/nx-ng-spring-boot/src/main.ts",
-            "polyfills": "apps/nx-ng-spring-boot/src/polyfills.ts",
-            "tsConfig": "apps/nx-ng-spring-boot/tsconfig.app.json",
+            "outputPath": "dist/apps/client",
+            "index": "apps/client/src/index.html",
+            "main": "apps/client/src/main.ts",
+            "polyfills": "apps/client/src/polyfills.ts",
+            "tsConfig": "apps/client/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/nx-ng-spring-boot/src/favicon.ico",
-              "apps/nx-ng-spring-boot/src/assets"
+            "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
+            "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "apps/client/src/styles.scss"
             ],
-            "styles": ["apps/nx-ng-spring-boot/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -40,8 +40,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/nx-ng-spring-boot/src/environments/environment.ts",
-                  "with": "apps/nx-ng-spring-boot/src/environments/environment.prod.ts"
+                  "replace": "apps/client/src/environments/environment.ts",
+                  "with": "apps/client/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -59,12 +59,16 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "server:build",
+            "proxyConfig": "apps/client/src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "nx-ng-spring-boot:build:production"
+              "browserTarget": "client:build:production"
             },
             "development": {
-              "browserTarget": "nx-ng-spring-boot:build:development"
+              "browserTarget": "client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,50 +76,127 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nx-ng-spring-boot:build"
+            "browserTarget": "client:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/nx-ng-spring-boot/src/**/*.ts",
-              "apps/nx-ng-spring-boot/src/**/*.html"
+              "apps/client/src/**/*.ts",
+              "apps/client/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/nx-ng-spring-boot"],
+          "outputs": ["coverage/apps/client"],
           "options": {
-            "jestConfig": "apps/nx-ng-spring-boot/jest.config.js",
+            "jestConfig": "apps/client/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
     },
-    "nx-ng-spring-boot-e2e": {
-      "root": "apps/nx-ng-spring-boot-e2e",
-      "sourceRoot": "apps/nx-ng-spring-boot-e2e/src",
+    "client-e2e": {
+      "root": "apps/client-e2e",
+      "sourceRoot": "apps/client-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/nx-ng-spring-boot-e2e/cypress.json",
-            "tsConfig": "apps/nx-ng-spring-boot-e2e/tsconfig.e2e.json",
-            "devServerTarget": "nx-ng-spring-boot:serve:development"
+            "cypressConfig": "apps/client-e2e/cypress.json",
+            "tsConfig": "apps/client-e2e/tsconfig.e2e.json",
+            "devServerTarget": "client:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "nx-ng-spring-boot:serve:production"
+              "devServerTarget": "client:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/nx-ng-spring-boot-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/client-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "server": {
+      "root": "apps/server",
+      "sourceRoot": "apps/server/src",
+      "projectType": "application",
+      "architect": {
+        "run": {
+          "builder": "@nxrocks/nx-spring-boot:run",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "serve": {
+          "builder": "@nxrocks/nx-spring-boot:serve",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "test": {
+          "builder": "@nxrocks/nx-spring-boot:test",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "clean": {
+          "builder": "@nxrocks/nx-spring-boot:clean",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "buildJar": {
+          "builder": "@nxrocks/nx-spring-boot:buildJar",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "buildWar": {
+          "builder": "@nxrocks/nx-spring-boot:buildWar",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "buildImage": {
+          "builder": "@nxrocks/nx-spring-boot:buildImage",
+          "options": {
+            "root": "apps/server"
+          }
+        },
+        "buildInfo": {
+          "builder": "@nxrocks/nx-spring-boot:buildInfo",
+          "options": {
+            "root": "apps/server"
+          }
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "app",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui"],
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         }
       }
@@ -151,5 +232,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "nx-ng-spring-boot"
+  "defaultProject": "client"
 }

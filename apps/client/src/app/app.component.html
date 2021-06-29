@@ -1,0 +1,35 @@
+<div class="container mt-3">
+  <button type="button" class="btn btn-primary mb-3" [innerHtml]="'Add User'" (click)="tapOpenUserFormModal(userForm)"></button>
+
+  <app-message [message]="messageSelector$ | async" [dismissible]="true" (closed)="onMessageClosed()"></app-message>
+
+  <app-user-list [users]="users$ | async"
+    (addUser)="tapOpenUserFormModal(userForm)"
+    (updateUser)="tapOpenUserFormModal(userForm, $event)"
+    (deleteUser)="tapOpenDeleteUserModal(confirmUserDelete, $event)"></app-user-list>
+</div>
+
+<ng-template #userForm>
+  <div class="modal-header pb-0">
+    <h4 class="modal-title pull-left" [innerHtml]="'Save User'"></h4>
+    <button type="button" class="close pull-right" (click)="closeUserFormModel()">
+      <span [innerHtml]="'&times;'"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-user-form [user]="activeUser$ | async" (save)="saveUser($event)" (closeModel)="closeUserFormModel()"></app-user-form>
+  </div>
+</ng-template>
+
+<ng-template #confirmUserDelete>
+  <div class="modal-header pb-0">
+    <h4 class="modal-title pull-left" [innerHtml]="'Delete User'"></h4>
+    <button type="button" class="close pull-right" (click)="closeDeleteUserModel()">
+      <span [innerHtml]="'&times;'"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-message [message]="getDeleteMessage(activeUser$ | async)"></app-message>
+    <app-user-delete [user]="activeUser$ | async" (delete)="deleteUser($event!)" (closeModel)="closeDeleteUserModel()"></app-user-delete>
+  </div>
+</ng-template>

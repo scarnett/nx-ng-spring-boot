@@ -1,0 +1,4 @@
+<alert [type]="getType()" [dismissible]="dismissible" [dismissOnTimeout]="getDismissTimeout()" (onClosed)="onClosed()" *ngIf="message || type">
+  <span [innerHtml]="message?.text" *ngIf="message"></span>
+  <ng-content></ng-content>
+</alert>

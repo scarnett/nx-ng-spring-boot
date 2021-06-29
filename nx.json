@@ -1,5 +1,5 @@
 {
-  "npmScope": "nx-ng-spring-boot",
+  "npmScope": "app",
   "affected": {
     "defaultBase": "master"
   },
@@ -19,12 +19,19 @@
     }
   },
   "projects": {
-    "nx-ng-spring-boot": {
+    "client": {
       "tags": []
     },
-    "nx-ng-spring-boot-e2e": {
+    "client-e2e": {
       "tags": [],
-      "implicitDependencies": ["nx-ng-spring-boot"]
+      "implicitDependencies": ["client"]
+    },
+    "server": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
     }
-  }
+  },
+  "plugins": ["@nxrocks/nx-spring-boot"]
 }

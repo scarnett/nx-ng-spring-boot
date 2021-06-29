@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/nx-ng-spring-boot'],
+  projects: ['<rootDir>/apps/client', '<rootDir>/libs/ui'],
 };

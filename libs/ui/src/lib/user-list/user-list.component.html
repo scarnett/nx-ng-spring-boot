@@ -1,0 +1,37 @@
+<div *ngIf="users; else loading">
+  <ng-container *ngIf="users.length; else emptyMessage">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th [innerHtml]="'First Name'" class="firstName"></th>
+          <th [innerHtml]="'Last Name'" class="lastName"></th>
+          <th [innerHtml]="'Email'" class="email"></th>
+          <th [innerHtml]="'&nbsp;'" class="options"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td [innerHtml]="user.firstName"></td>
+          <td [innerHtml]="user.lastName"></td>
+          <td [innerHtml]="user.email"></td>
+          <td>
+            <a href="#" [innerHtml]="'Edit'" class="mr-3" (click)="tapUpdateUser(user)"></a>
+            <a href="#" [innerHtml]="'Delete'" (click)="tapDeleteUser(user)"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <app-message [message]="getLoadingMessage()"></app-message>
+</ng-template>
+
+<ng-template #emptyMessage>
+  <app-message [type]="getEmptyMessageType()">
+    <span [innerHtml]="'No users found. Please '"></span>
+    <a href="#" class="alert-link" [innerHtml]="'add one'" (click)="tapAddUser()"></a>
+    <span [innerHtml]="'.'"></span>
+  </app-message>
+</ng-template>
