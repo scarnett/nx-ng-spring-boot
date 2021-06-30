@@ -39,7 +39,7 @@ docker-compose logs client
 
 ## PostgreSQL (Database)
 
-The PostgreSQL database contains only single schema with one table - `users`.
+The PostgreSQL database contains only a single schema with one table - `users`.
 
 After running the app it can be accessible using the following criteria:
 
@@ -66,7 +66,7 @@ db:
 ```
 
 ## Spring Boot REST API (Server)
-This is a Spring Boot (Java) based application that connects with a database that and exposes some REST endpoints that can be consumed by frontend. It supports multiple HTTP REST methods like GET, POST, PUT and DELETE for onc resource - `users`.
+This is a Spring Boot (Java) based application that connects with a database and exposes some REST endpoints which are being consumed by the angular frontend. It supports multiple HTTP REST methods like GET, POST, PUT and DELETE for a single resource - `users`.
 
 `docker-compose.yml`
 
