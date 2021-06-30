@@ -15,7 +15,9 @@ services:
     restart: always
 
   server:
-    build: ./apps/server
+    build:
+      context: ./apps/server
+      dockerfile: Dockerfile.server
     container_name: server
     environment:
       - DB_SERVER=db
@@ -29,7 +31,9 @@ services:
       - db
 
   client:
-    build: ./apps/client
+    build:
+      context: ./apps/client
+      dockerfile: Dockerfile.client
     container_name: client
     ports:
       - '4200:80'
