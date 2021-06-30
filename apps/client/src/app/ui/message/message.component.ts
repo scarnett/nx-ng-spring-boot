@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { Message } from '@app/model'
-import { MessageType } from '@app/enum'
+import { MessageType } from 'src/app/enum'
+import { Message } from 'src/app/model'
 
 @Component({
   selector: 'app-message',

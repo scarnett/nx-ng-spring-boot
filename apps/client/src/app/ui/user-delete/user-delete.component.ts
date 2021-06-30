@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { User } from '@app/model'
+import { User } from 'src/app/model'
 
 @Component({
   selector: 'app-user-delete',

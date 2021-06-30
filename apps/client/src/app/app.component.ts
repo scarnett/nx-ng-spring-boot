@@ -63,7 +63,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   saveUser(formData: { [x: string]: unknown }): void {
-    const user: User = Object.assign(new User(), { id: formData['id'] }, formData['data'])
+    const userId: unknown = formData['id']
+    let user: User
+
+    if (userId) {
+      user = Object.assign(new User(), { id: userId }, formData['data'])
+    } else {
+      user = Object.assign(new User(), formData['data'])
+    }
+
     this.store.dispatch(saveUserAction({ user }))
     this.modalService.hide()
   }

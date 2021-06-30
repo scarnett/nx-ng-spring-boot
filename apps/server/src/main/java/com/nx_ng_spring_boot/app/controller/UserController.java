@@ -20,7 +20,7 @@ import com.nx_ng_spring_boot.app.model.User;
 import com.nx_ng_spring_boot.app.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class UserController {
 	@Autowired
 	UserRepository repository;

@@ -14,11 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@app/enum": ["apps/client/src/app/enum/index.ts"],
-      "@app/model": ["apps/client/src/app/model/index.ts"],
-      "@app/ui": ["libs/ui/src/index.ts"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }

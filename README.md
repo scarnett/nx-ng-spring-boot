@@ -1,5 +1,24 @@
 # Setup
 
+This project uses <a href="https://nx.dev" target="_blank">Nx</a>. Go [here](https://nx.dev/latest/angular/getting-started/cli-overview) for installation instructions.
+
+
+# Run
+```bash
+docker-compose logs server
+```
+
+# Stop
+```bash
+docker-compose stop
+```
+
+# View logs
+```bash
+docker-compose logs server
+docker-compose logs client
+```
+
 # Install Packages
 ```bash
 npm i
@@ -30,3 +49,14 @@ nx run server:run
 ```bash
 nx serve client
 ```
+
+## Credits
+Created by [@scarnett](https://github.com/scarnett/)
+
+## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+Copyright &copy; 2021 Scott Carnett. Licensed under the MIT License (MIT)
+
+## Nx
+<p>This project was generated using <a href="https://nx.dev" target="_blank">Nx</a>.</p>
+<img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="100" />

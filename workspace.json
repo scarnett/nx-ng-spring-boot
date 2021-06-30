@@ -1,14 +1,14 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": {
     "client": {
       "projectType": "application",
       "root": "apps/client",
       "sourceRoot": "apps/client/src",
-      "prefix": "app",
-      "architect": {
+      "prefix": "test",
+      "targets": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "executor": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/client",
@@ -18,10 +18,7 @@
             "tsConfig": "apps/client/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
-            "styles": [
-              "node_modules/bootstrap/scss/bootstrap.scss",
-              "apps/client/src/styles.scss"
-            ],
+            "styles": ["apps/client/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -58,11 +55,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "server:build",
-            "proxyConfig": "apps/client/src/proxy.conf.json"
-          },
+          "executor": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "client:build:production"
@@ -74,13 +67,13 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "client:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "apps/client/src/**/*.ts",
@@ -89,7 +82,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/client"],
           "options": {
             "jestConfig": "apps/client/jest.config.js",
@@ -102,9 +95,9 @@
       "root": "apps/client-e2e",
       "sourceRoot": "apps/client-e2e/src",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+          "executor": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/client-e2e/cypress.json",
             "tsConfig": "apps/client-e2e/tsconfig.e2e.json",
@@ -117,7 +110,7 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/client-e2e/**/*.{js,ts}"]
           }
@@ -128,75 +121,53 @@
       "root": "apps/server",
       "sourceRoot": "apps/server/src",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "run": {
-          "builder": "@nxrocks/nx-spring-boot:run",
+          "executor": "@nxrocks/nx-spring-boot:run",
           "options": {
             "root": "apps/server"
           }
         },
         "serve": {
-          "builder": "@nxrocks/nx-spring-boot:serve",
+          "executor": "@nxrocks/nx-spring-boot:serve",
           "options": {
             "root": "apps/server"
           }
         },
         "test": {
-          "builder": "@nxrocks/nx-spring-boot:test",
+          "executor": "@nxrocks/nx-spring-boot:test",
           "options": {
             "root": "apps/server"
           }
         },
         "clean": {
-          "builder": "@nxrocks/nx-spring-boot:clean",
+          "executor": "@nxrocks/nx-spring-boot:clean",
           "options": {
             "root": "apps/server"
           }
         },
         "buildJar": {
-          "builder": "@nxrocks/nx-spring-boot:buildJar",
+          "executor": "@nxrocks/nx-spring-boot:buildJar",
           "options": {
             "root": "apps/server"
           }
         },
         "buildWar": {
-          "builder": "@nxrocks/nx-spring-boot:buildWar",
+          "executor": "@nxrocks/nx-spring-boot:buildWar",
           "options": {
             "root": "apps/server"
           }
         },
         "buildImage": {
-          "builder": "@nxrocks/nx-spring-boot:buildImage",
+          "executor": "@nxrocks/nx-spring-boot:buildImage",
           "options": {
             "root": "apps/server"
           }
         },
         "buildInfo": {
-          "builder": "@nxrocks/nx-spring-boot:buildInfo",
+          "executor": "@nxrocks/nx-spring-boot:buildInfo",
           "options": {
             "root": "apps/server"
-          }
-        }
-      }
-    },
-    "ui": {
-      "projectType": "library",
-      "root": "libs/ui",
-      "sourceRoot": "libs/ui/src",
-      "prefix": "app",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
-          "options": {
-            "jestConfig": "libs/ui/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         }
       }
@@ -205,18 +176,7 @@
   "cli": {
     "defaultCollection": "@nrwl/angular"
   },
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
+  "generators": {
     "@nrwl/angular:application": {
       "style": "scss",
       "linter": "eslint",
@@ -231,6 +191,5 @@
     "@nrwl/angular:component": {
       "style": "scss"
     }
-  },
-  "defaultProject": "client"
+  }
 }

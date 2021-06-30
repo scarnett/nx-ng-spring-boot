@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { Message } from '@app/model'
-import { MessageType } from '@app/enum'
-import { User } from '@app/model'
+import { MessageType } from 'src/app/enum'
+import { Message, User } from 'src/app/model'
 
 @Component({
   selector: 'app-user-list',

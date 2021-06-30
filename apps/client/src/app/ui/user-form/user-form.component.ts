@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { User } from '@app/model'
+import { User } from 'src/app/model'
 
 @Component({
   selector: 'app-user-form',

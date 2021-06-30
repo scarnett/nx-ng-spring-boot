@@ -1,8 +1,6 @@
 <div class="container mt-3">
   <button type="button" class="btn btn-primary mb-3" [innerHtml]="'Add User'" (click)="tapOpenUserFormModal(userForm)"></button>
-
   <app-message [message]="messageSelector$ | async" [dismissible]="true" (closed)="onMessageClosed()"></app-message>
-
   <app-user-list [users]="users$ | async"
     (addUser)="tapOpenUserFormModal(userForm)"
     (updateUser)="tapOpenUserFormModal(userForm, $event)"

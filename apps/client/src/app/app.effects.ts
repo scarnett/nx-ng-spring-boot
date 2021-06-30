@@ -103,6 +103,13 @@ export class AppEffects {
     )
   )
 
+  fetchUsersFailure$ = createEffect((): Observable<Action> => this.actions$
+    .pipe(
+      ofType(fetchUsersFailureAction),
+      map((action) => setMessageAction({ message: new Message(action.message, MessageType.Danger) }))
+    )
+  )
+
   crudUserFailure$ = createEffect((): Observable<Action> => this.actions$
     .pipe(
       ofType(createUserFailureAction, updateUserFailureAction, deleteUserFailureAction),
