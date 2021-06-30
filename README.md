@@ -1,53 +1,105 @@
-# Setup
+## About
 
-This project uses <a href="https://nx.dev" target="_blank">Nx</a>. Go [here](https://nx.dev/latest/angular/getting-started/cli-overview) for installation instructions.
+This is a simple CRUD application for maintaining users. This project is made up of three separate Socker containers for:
 
+* [PostgreSQL](https://www.postgresql.org/) (Database)
+* [Spring Boot](https://spring.io/projects/spring-boot) REST API (Server)
+* [Angular](https://angular.io/) Frontend (Client)
 
-# Run
+The entry point for this application is http://localhost:4200/
+
+---
+
+## Setup
+
+In order to run this application you need to install two tools: [Docker](https://www.docker.com/) &amp; [Docker Compose](https://docs.docker.com/compose/).
+
+Instructions how to install **Docker** on [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/), [Windows](https://docs.docker.com/docker-for-windows/install/), [Mac](https://docs.docker.com/docker-for-mac/install/).
+
+## Run
 ```bash
-docker-compose logs server
+docker-compose up -d
 ```
 
-# Stop
+## Run & Build
+```bash
+docker-compose up -d --build
+```
+
+## Stop
 ```bash
 docker-compose stop
 ```
 
-# View logs
+## View logs
 ```bash
 docker-compose logs server
 docker-compose logs client
 ```
 
-# Install Packages
-```bash
-npm i
-```
+## PostgreSQL (Database)
 
-## Postgres
+The PostgreSQL database contains only single schema with one table - `users`.
 
-```bash
-sudo apt install postgresql postgresql-contrib
-sudo -u postgres psql
-```
+After running the app it can be accessible using the following criteria:
 
-```psql
-postgres=# create database nx_ng_spring_boot;
-postgres=# create user admin with encrypted password 'admin';
-postgres=# grant all privileges on database nx_ng_spring_boot to admin;
-exit
-```
+* Host: `localhost`
+* Database: `app_db`
+* User: `admin`
+* Password: `admin`
 
-## Run Server
+`docker-compose.yml`
 
 ```bash
-nx run server:run
+db:
+  image: 'postgres:13.3-alpine'
+  container_name: postgres
+  volumes:
+    - postgres:/var/lib/postgresql/data
+  ports:
+    - '5432:5432'
+  environment:
+    - POSTGRES_DB=app_db
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=admin
+  restart: always
 ```
 
-## Run Client
+## Spring Boot REST API (Server)
+This is a Spring Boot (Java) based application that connects with a database that and exposes some REST endpoints that can be consumed by frontend. It supports multiple HTTP REST methods like GET, POST, PUT and DELETE for onc resource - `users`.
+
+`docker-compose.yml`
 
 ```bash
-nx serve client
+server:
+  build: ./apps/server
+  container_name: server
+  environment:
+    - DB_SERVER=db
+    - DB_PORT=5432
+    - POSTGRES_DB=app_db
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=admin
+  ports:
+    - '8080:8080'
+  depends_on:
+    - db
+```
+
+## Angular Frontend (Client)
+
+This is the endpoint for a user to maintain other users. It consumes the REST API endpoints that are being provided by `server`.
+
+`docker-compose.yml`
+
+```bash
+client:
+  build: ./apps/client
+  container_name: client
+  ports:
+    - '4200:80'
+  depends_on:
+    - server
 ```
 
 ## Credits
