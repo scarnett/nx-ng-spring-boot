@@ -1,6 +1,6 @@
 ## About
 
-This is a simple CRUD application build with Spring Boot anf Angular for maintaining users. This project is made up of three separate Docker containers for:
+This is a simple CRUD application built with Spring Boot anf Angular for maintaining users. This project is made up of three separate Docker containers for:
 
 * [PostgreSQL](https://www.postgresql.org/) (Database)
 * [Spring Boot](https://spring.io/projects/spring-boot) REST API (Server)
